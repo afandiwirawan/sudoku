@@ -10,7 +10,7 @@ public class SudokuMain extends JFrame {
     // private variables
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
-
+    sinyo
     // Constructor
     public SudokuMain() {
         Container cp = getContentPane();
