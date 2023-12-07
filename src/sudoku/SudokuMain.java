@@ -1,15 +1,14 @@
 package sudoku;
 import java.awt.*;
 import javax.swing.*;
-/**
- * The main Sudoku program
- */
+
 public class SudokuMain extends JFrame {
     private static final long serialVersionUID = 1L;  // to prevent serial warning
 
     // private variables
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
+    JButton btnRestart = new JButton("Restart"); // New button for restart
 
     // Constructor
     public SudokuMain() {
@@ -18,8 +17,17 @@ public class SudokuMain extends JFrame {
 
         cp.add(board, BorderLayout.CENTER);
 
-        // Add a button to the south to re-start the game via board.newGame()
-        // ......
+        // Add buttons to the south to re-start the game via board.newGame() and restart
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(btnNewGame);
+        buttonPanel.add(btnRestart);
+        cp.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Add ActionListener for New Game button
+        btnNewGame.addActionListener(e -> board.newGame());
+
+        // Add ActionListener for Restart button
+        btnRestart.addActionListener(e -> restartGame());
 
         // Initialize the game board to start the game
         board.newGame();
@@ -28,6 +36,12 @@ public class SudokuMain extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // to handle window-closing
         setTitle("Sudoku");
         setVisible(true);
+    }
+
+    // Method to restart the game
+    private void restartGame() {
+        board.newGame(); // Call the newGame method on button click
+        JOptionPane.showMessageDialog(this, "Game Restarted!");
     }
 
     /** The entry main() entry method */
