@@ -1,7 +1,8 @@
-package sudoku;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.border.Border;
+
 /**
  * The Cell class model the cells of the Sudoku puzzle, by customizing (subclass)
  * the javax.swing.JTextField to include row/column, puzzle number and status.
@@ -14,10 +15,13 @@ public class Cell extends JTextField {
     public static final Color BG_GIVEN = new Color(240, 240, 240); // RGB
     public static final Color FG_GIVEN = Color.BLACK;
     public static final Color FG_NOT_GIVEN = Color.GRAY;
-    public static final Color BG_TO_GUESS  = Color.YELLOW;
+    public static final Color BG_TO_GUESS  = Color.WHITE;
     public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
     public static final Color BG_WRONG_GUESS   = new Color(216, 0, 0);
-    public static final Font FONT_NUMBERS = new Font("OCR A Extended", Font.PLAIN, 28);
+    public static final Font FONT_NUMBERS = new Font("Courier New", Font.PLAIN, 28);
+
+
+
 
     // Define properties (package-visible)
     /** The row and column number [0-8] of this cell */
@@ -63,5 +67,9 @@ public class Cell extends JTextField {
         } else if (status == CellStatus.WRONG_GUESS) {    // from TO_GUESS
             super.setBackground(BG_WRONG_GUESS);
         }
+
+
     }
+
+
 }
