@@ -62,17 +62,17 @@ public class Puzzle {
         }
         while (!solve());
         int appearedNumber = 75;
-        int rowcollimit=9;
+        int limittedrowcol=9;
         int count = 0;
         int [] limitedColumn = new int[9];
         int [] limitedRow = new int[9];
-        int counter=0;
+
         while(count<appearedNumber){
             System.out.println(count);
             int rowrandoming = getRandomNumber(0,9);
             int colrandoming = getRandomNumber(0,9);
             if(isGiven[rowrandoming][colrandoming]==false){
-                if(limitedColumn[colrandoming]<rowcollimit&&limitedRow[rowrandoming]<rowcollimit){
+                if(limitedColumn[colrandoming]<limittedrowcol&&limitedRow[rowrandoming]<limittedrowcol){
                     isGiven[rowrandoming][colrandoming]= true;
                     limitedColumn[colrandoming]+=1;
                     limitedRow[rowrandoming]+=1;
