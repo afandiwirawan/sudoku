@@ -43,13 +43,25 @@ public class Cell extends JTextField {
     int number;
     /** The status of this cell defined in enum CellStatus */
     CellStatus status;
+    boolean islocked;
 
     /** Constructor */
     public Cell(int row, int col) {
         super();   // JTextField
         this.row = row;
         this.col = col;
+        setDocument(new LimitInputCell(1));
         // Inherited from JTextField: Beautify all the cells once for all
+        super.setHorizontalAlignment(JTextField.CENTER);
+        super.setFont(FONT_NUMBERS);
+    }
+
+    public Cell(int row, int col, int value){
+        super(); //JTextField
+        this.row = row;
+        this.col = col;
+        this.number = value;
+        setDocument(new LimitInputCell(1));//Make cell has a limit length input
         super.setHorizontalAlignment(JTextField.CENTER);
         super.setFont(FONT_NUMBERS);
     }
