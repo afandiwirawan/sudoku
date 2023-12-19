@@ -2,7 +2,7 @@
  * ES234317-Algorithm and Data Structures
  * Semester Ganjil, 2023/2024
  * Group Capstone Project
- * Group #10
+ * Group #11
  * 1 - 5026221009 - Indriyani Alif Safitri
  * 2 - 5026221116 - Athaalla Rayya Genaro Iswandoko
  * 3 - 5026221127 - Mochammad Afandi Wirawan
@@ -31,7 +31,7 @@ public class Cell extends JTextField {
     public static final Color BG_TO_GUESS  = Color.WHITE;
     public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
     public static final Color BG_WRONG_GUESS   = new Color(216, 0, 0);
-    public static final Font FONT_NUMBERS = new Font("Courier New", Font.PLAIN, 28);
+    public static final Font FONT_NUMBERS = new Font("sans-serif", Font.PLAIN, 28);
 
 
 

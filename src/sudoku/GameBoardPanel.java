@@ -2,7 +2,7 @@
  * ES234317-Algorithm and Data Structures
  * Semester Ganjil, 2023/2024
  * Group Capstone Project
- * Group #10
+ * Group #11
  * 1 - 5026221009 - Indriyani Alif Safitri
  * 2 - 5026221116 - Athaalla Rayya Genaro Iswandoko
  * 3 - 5026221127 - Mochammad Afandi Wirawan
@@ -13,6 +13,7 @@ package sudoku;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 public class GameBoardPanel extends JPanel {
     private static final long serialVersionUID = 1L;  // to prevent serial warning
@@ -28,16 +29,29 @@ public class GameBoardPanel extends JPanel {
     private Cell[][] cells = new Cell[SudokuConstants.GRID_SIZE][SudokuConstants.GRID_SIZE];
     /** It also contains a Puzzle with array numbers and isGiven */
     private Puzzle puzzle = new Puzzle();
+    JPanel gridsudoku = new JPanel();
 
     /** Constructor */
     public GameBoardPanel() {
-        super.setLayout(new GridLayout(SudokuConstants.GRID_SIZE, SudokuConstants.GRID_SIZE));  // JPanel
+        super.setLayout(new GridLayout());  // JPanel
+        super.add(gridsudoku, BorderLayout.CENTER);
+        gridsudoku.setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
+        gridsudoku.setBorder(new LineBorder(Color.white,10));
+        gridsudoku.setLayout(new GridLayout(SudokuConstants.SUBGRID_SIZE, SudokuConstants.SUBGRID_SIZE));
 
         // Allocate the 2D array of Cell, and added into JPanel.
-        for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
-            for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
-                cells[row][col] = new Cell(row, col);
-                super.add(cells[row][col]);   // JPanel
+        for (int row = 0; row < SudokuConstants.SUBGRID_SIZE; row++) {
+            for (int col = 0; col < SudokuConstants.SUBGRID_SIZE; col++) {
+                JPanel linesubgrid = new JPanel();
+                linesubgrid.setBorder(new LineBorder(Color.black,1));
+                linesubgrid.setLayout(new GridLayout(SudokuConstants.SUBGRID_SIZE, SudokuConstants.SUBGRID_SIZE));
+                for (int i=0; i < SudokuConstants.SUBGRID_SIZE; i++) {
+                    for (int j=0; j < SudokuConstants.SUBGRID_SIZE; j++) {
+                        cells[row*3+i][col*3+j] = new Cell(row*3+i, col*3+j);
+                        linesubgrid.add(cells[row*3+i][col*3+j]);
+                    }
+                }
+                gridsudoku.add(linesubgrid);
             }
         }
 
