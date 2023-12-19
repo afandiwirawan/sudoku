@@ -43,7 +43,7 @@ public class GameBoardPanel extends JPanel {
         for (int row = 0; row < SudokuConstants.SUBGRID_SIZE; row++) {
             for (int col = 0; col < SudokuConstants.SUBGRID_SIZE; col++) {
                 JPanel linesubgrid = new JPanel();
-                linesubgrid.setBorder(new LineBorder(Color.black,1));
+                linesubgrid.setBorder(new LineBorder(Color.black,2));
                 linesubgrid.setLayout(new GridLayout(SudokuConstants.SUBGRID_SIZE, SudokuConstants.SUBGRID_SIZE));
                 for (int i=0; i < SudokuConstants.SUBGRID_SIZE; i++) {
                     for (int j=0; j < SudokuConstants.SUBGRID_SIZE; j++) {
@@ -57,7 +57,7 @@ public class GameBoardPanel extends JPanel {
 
         // [TODO 3] Allocate a common listener as the ActionEvent listener for all the
         //  Cells (JTextFields)
-            CellInputListener listener = new CellInputListener();
+        CellInputListener listener = new CellInputListener();
 
         // [TODO 4] Adds this common listener to all editable cells
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
@@ -75,9 +75,24 @@ public class GameBoardPanel extends JPanel {
      * Generate a new puzzle; and reset the gameboard of cells based on the puzzle.
      * You can call this method to start a new game.
      */
-    public void newGame() {
-        // Generate a new puzzle
-        puzzle.newPuzzle(2);
+    public void newGame(String difficultyLevel) {
+        // Generate a new puzzle based on difficulty level
+        int level;
+        switch (difficultyLevel.toLowerCase()) {
+            case "easy":
+                level = 1;
+                break;
+            case "medium":
+                level = 2;
+                break;
+            case "hard":
+                level = 3;
+                break;
+            default:
+                level = 2; // Default to medium if an invalid difficulty level is provided
+        }
+
+        puzzle.newPuzzle(level);
 
         // Initialize all the 9x9 cells, based on the puzzle.
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {

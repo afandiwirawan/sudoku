@@ -32,10 +32,15 @@ public class SudokuMain extends JFrame {
     private Timer timer;
     private int seconds;
 
+    JComboBox<String> difficultyComboBox;
+
     // Constructor
     public SudokuMain() {
-        // Prompt the user to enter their name
+        // Prompt the user to select difficulty
+        String[] difficultyOptions = {"Easy", "Medium", "Hard"};
+        difficultyComboBox = new JComboBox<>(difficultyOptions);
         playerName = JOptionPane.showInputDialog(this, "Enter your name:");
+        JOptionPane.showMessageDialog(this, difficultyComboBox, "Select Difficulty", JOptionPane.QUESTION_MESSAGE);
 
         Container cp = getContentPane();
         cp.setLayout(new BorderLayout());
@@ -57,7 +62,7 @@ public class SudokuMain extends JFrame {
 
         // Initialize the game board and timer
         initializeTimer();
-        board.newGame();
+        board.newGame(getSelectedDifficultyLevel());
         startTimer();
 
         pack();     // Pack the UI components, instead of using setSize()
@@ -73,15 +78,19 @@ public class SudokuMain extends JFrame {
             playerName = JOptionPane.showInputDialog(this, "Enter your name:");
         }
 
+        board.newGame(getSelectedDifficultyLevel());
         restartTimer();
-        board.newGame();
     }
 
     // Method to restart the game
     private void restartGame() {
         restartTimer();
-        board.newGame();
+        board.newGame(getSelectedDifficultyLevel());
         JOptionPane.showMessageDialog(this, "Game Restarted!");
+    }
+
+    private String getSelectedDifficultyLevel() {
+        return (String) difficultyComboBox.getSelectedItem();
     }
 
     // Method to initialize the timer
