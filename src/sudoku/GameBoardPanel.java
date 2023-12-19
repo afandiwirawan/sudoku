@@ -43,7 +43,7 @@ public class GameBoardPanel extends JPanel {
         for (int row = 0; row < SudokuConstants.SUBGRID_SIZE; row++) {
             for (int col = 0; col < SudokuConstants.SUBGRID_SIZE; col++) {
                 JPanel linesubgrid = new JPanel();
-                linesubgrid.setBorder(new LineBorder(Color.black,2));
+                linesubgrid.setBorder(new LineBorder(Color.black,1));
                 linesubgrid.setLayout(new GridLayout(SudokuConstants.SUBGRID_SIZE, SudokuConstants.SUBGRID_SIZE));
                 for (int i=0; i < SudokuConstants.SUBGRID_SIZE; i++) {
                     for (int j=0; j < SudokuConstants.SUBGRID_SIZE; j++) {
@@ -78,21 +78,26 @@ public class GameBoardPanel extends JPanel {
     public void newGame(String difficultyLevel) {
         // Generate a new puzzle based on difficulty level
         int level;
+        int toGivenCells;
         switch (difficultyLevel.toLowerCase()) {
             case "easy":
                 level = 1;
+                toGivenCells = 50;
                 break;
             case "medium":
                 level = 2;
+                toGivenCells = 40;
                 break;
             case "hard":
                 level = 3;
+                toGivenCells = 30;
                 break;
             default:
-                level = 2; // Default to medium if an invalid difficulty level is provided
+                level = 2;
+                toGivenCells = 45;
         }
 
-        puzzle.newPuzzle(level);
+        puzzle.newPuzzle(level, toGivenCells);
 
         // Initialize all the 9x9 cells, based on the puzzle.
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {

@@ -32,7 +32,7 @@ public class Puzzle {
     //  to control the difficulty level.
     // This method shall set (or update) the arrays numbers and isGiven
 
-    public void newPuzzle(int levelGame) {
+    public void newPuzzle(int levelGame, int toGivenCells) {
         numbers = new int[GRID_SIZE][GRID_SIZE];
         //sudoku generator initial value
         int initvalue = 10;
@@ -61,7 +61,7 @@ public class Puzzle {
             }
         }
         while (!solve());
-        int appearedNumber = 75;
+        int appearedNumber = toGivenCells;
         int limittedrowcol=9;
         int count = 0;
         int [] limitedColumn = new int[9];

@@ -33,6 +33,7 @@ public class SudokuMain extends JFrame {
     private int seconds;
 
     JComboBox<String> difficultyComboBox;
+    JButton btnChangeDifficulty;
 
     // Constructor
     public SudokuMain() {
@@ -49,11 +50,14 @@ public class SudokuMain extends JFrame {
 
         // Add buttons and timer label to the south to re-start the game via board.newGame() and restart
         JPanel buttonPanel = new JPanel();
+        JButton changeDifficultyButton = new JButton("Change Difficulty");
+        buttonPanel.add(changeDifficultyButton);
         buttonPanel.add(btnNewGame);
         buttonPanel.add(btnRestart);
         buttonPanel.add(timerLabel);
         cp.add(buttonPanel, BorderLayout.SOUTH);
 
+        changeDifficultyButton.addActionListener(e -> showDifficultyDialog());
         // Add ActionListener for New Game button
         btnNewGame.addActionListener(e -> startNewGame());
 
@@ -91,6 +95,12 @@ public class SudokuMain extends JFrame {
 
     private String getSelectedDifficultyLevel() {
         return (String) difficultyComboBox.getSelectedItem();
+    }
+
+    private void showDifficultyDialog() {
+        JOptionPane.showMessageDialog(this, difficultyComboBox, "Change Difficulty", JOptionPane.QUESTION_MESSAGE);
+        board.newGame(getSelectedDifficultyLevel());
+        restartTimer();
     }
 
     // Method to initialize the timer
