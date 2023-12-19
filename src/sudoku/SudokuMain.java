@@ -26,6 +26,7 @@ public class SudokuMain extends JFrame {
     JButton btnNewGame = new JButton("New Game");
     JLabel timerLabel = new JLabel("Timer: 0 seconds");
     JLabel scoreLabel = new JLabel();
+    JButton btnAbout = new JButton("About");
     String playerName;
 
     // Timer variables
@@ -56,11 +57,15 @@ public class SudokuMain extends JFrame {
         buttonPanel.add(btnNewGame);
         buttonPanel.add(timerLabel);
         buttonPanel.add(scoreLabel);
+        buttonPanel.add(btnAbout);
         cp.add(buttonPanel, BorderLayout.SOUTH);
 
         changeDifficultyButton.addActionListener(e -> showDifficultyDialog());
         // Add ActionListener for New Game button
         btnNewGame.addActionListener(e -> startNewGame());
+        btnAbout.addActionListener(e -> {
+            SwingUtilities.invokeLater(About::new);
+        });
 
         // Initialize the game board and timer
         initializeTimer();
