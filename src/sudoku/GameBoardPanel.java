@@ -29,11 +29,14 @@ public class GameBoardPanel extends JPanel {
     private Cell[][] cells = new Cell[SudokuConstants.GRID_SIZE][SudokuConstants.GRID_SIZE];
     /** It also contains a Puzzle with array numbers and isGiven */
     private Puzzle puzzle = new Puzzle();
-    JPanel gridsudoku = new JPanel();
+    private JPanel gridsudoku = new JPanel();
+    private int totalScore;
+
+    private JLabel scoreLabel = new JLabel("Total Score: 0");
 
     /** Constructor */
     public GameBoardPanel() {
-        super.setLayout(new GridLayout());  // JPanel
+        super.setLayout(new BorderLayout());
         super.add(gridsudoku, BorderLayout.CENTER);
         gridsudoku.setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         gridsudoku.setBorder(new LineBorder(Color.white,10));
@@ -67,7 +70,10 @@ public class GameBoardPanel extends JPanel {
                 }
             }
         }
+        JPanel southPanel = new JPanel(new FlowLayout());
+        southPanel.add(scoreLabel);
 
+        super.add(southPanel, BorderLayout.SOUTH);
         super.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
     }
 
@@ -105,6 +111,8 @@ public class GameBoardPanel extends JPanel {
                 cells[row][col].newGame(puzzle.numbers[row][col], puzzle.isGiven[row][col]);
             }
         }
+        totalScore = 0;
+        updateScoreLabel();
     }
 
     /**
@@ -128,11 +136,18 @@ public class GameBoardPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             // Get a reference of the JTextField that triggers this action event
             Cell sourceCell = (Cell)e.getSource();
+            if (sourceCell.status == CellStatus.CORRECT_GUESS) {
+                return; // Jangan izinkan perubahan jika sudah benar
+            }
 
-            // Retrieve the int entered
-            int numberIn = Integer.parseInt(sourceCell.getText());
-            // For debugging
-            System.out.println("You entered " + numberIn);
+            int numberIn;
+            try {
+                // Retrieve the int entered
+                numberIn = Integer.parseInt(sourceCell.getText());
+            } catch (NumberFormatException ex) {
+                // Handle non-integer input if needed
+                return;
+            }
 
             /*
              * [TODO 5] (later - after TODO 3 and 4)
@@ -142,10 +157,12 @@ public class GameBoardPanel extends JPanel {
              */
             if (numberIn == sourceCell.number) {
                 sourceCell.status = CellStatus.CORRECT_GUESS;
+                totalScore += 5;
             } else {
                 sourceCell.status = CellStatus.WRONG_GUESS;
             }
             sourceCell.paint();   // re-paint this cell based on its status
+
 
             /*
              * [TODO 6] (later)
@@ -153,9 +170,13 @@ public class GameBoardPanel extends JPanel {
              *   by calling isSolved(). Put up a congratulation JOptionPane, if so.
              */
             if (isSolved()) {
-                JOptionPane.showMessageDialog(null, "Congratulation!");
+                JOptionPane.showMessageDialog(null, "Congratulation! Your Total Score: "+ totalScore);
             }
+            updateScoreLabel();
         }
     }
 
+    private void updateScoreLabel() {
+        scoreLabel.setText("Total Score: " + totalScore);
+    }
 }

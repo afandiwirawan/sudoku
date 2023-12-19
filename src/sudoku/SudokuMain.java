@@ -24,16 +24,17 @@ public class SudokuMain extends JFrame {
     // private variables
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
-    JButton btnRestart = new JButton("Restart"); // New button for restart
     JLabel timerLabel = new JLabel("Timer: 0 seconds");
+    JLabel scoreLabel = new JLabel();
     String playerName;
 
     // Timer variables
     private Timer timer;
     private int seconds;
+    private int totalScore;
 
     JComboBox<String> difficultyComboBox;
-    JButton btnChangeDifficulty;
+
 
     // Constructor
     public SudokuMain() {
@@ -53,20 +54,18 @@ public class SudokuMain extends JFrame {
         JButton changeDifficultyButton = new JButton("Change Difficulty");
         buttonPanel.add(changeDifficultyButton);
         buttonPanel.add(btnNewGame);
-        buttonPanel.add(btnRestart);
         buttonPanel.add(timerLabel);
+        buttonPanel.add(scoreLabel);
         cp.add(buttonPanel, BorderLayout.SOUTH);
 
         changeDifficultyButton.addActionListener(e -> showDifficultyDialog());
         // Add ActionListener for New Game button
         btnNewGame.addActionListener(e -> startNewGame());
 
-        // Add ActionListener for Restart button
-        btnRestart.addActionListener(e -> restartGame());
-
         // Initialize the game board and timer
         initializeTimer();
         board.newGame(getSelectedDifficultyLevel());
+        totalScore = 0;
         startTimer();
 
         pack();     // Pack the UI components, instead of using setSize()
@@ -83,14 +82,9 @@ public class SudokuMain extends JFrame {
         }
 
         board.newGame(getSelectedDifficultyLevel());
-        restartTimer();
-    }
+        totalScore = 0;
 
-    // Method to restart the game
-    private void restartGame() {
         restartTimer();
-        board.newGame(getSelectedDifficultyLevel());
-        JOptionPane.showMessageDialog(this, "Game Restarted!");
     }
 
     private String getSelectedDifficultyLevel() {
@@ -130,6 +124,10 @@ public class SudokuMain extends JFrame {
     // Method to update the timer label
     private void updateTimerLabel() {
         timerLabel.setText("Timer: " + seconds + " seconds");
+    }
+
+    private void updateScoreLabel() {
+        scoreLabel.setText("Total Score: " + totalScore);
     }
 
     /** The entry main() entry method */

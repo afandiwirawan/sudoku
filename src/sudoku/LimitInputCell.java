@@ -34,7 +34,7 @@ class LimitInputCell extends PlainDocument {
         }
 
         // Only allow digits
-        if (str.matches("\\d+")) {
+        if (str.matches("\\d+") && !str.equals("0")) {
             if ((getLength() + str.length()) <= limitNumber) {
                 super.insertString(offset, str, attr);
             }

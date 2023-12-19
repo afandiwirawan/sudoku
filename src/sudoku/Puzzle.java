@@ -125,6 +125,7 @@ public class Puzzle {
                 if (currentColumn>=9){
                     currentRow+=1;
                     currentColumn=0;
+                    currentValue=1;
                 }
                 continue;
             }
